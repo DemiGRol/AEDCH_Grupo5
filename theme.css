@@ -1,0 +1,230 @@
+/* ==========================================================
+   theme.css · Única fuente de estilo de la presentación.
+   No escribir colores/fuentes/tamaños a mano en las diapositivas.
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600&display=swap");
+
+:root {
+  /* Color */
+  --bg: #FAF6EC;
+  --surface: #F1EADA;
+  --line: #D9CFB8;
+  --ink: #2A2520;
+  --ink-soft: #6A6054;
+  --accent: #1F3A5F;
+  --accent-2: #B0663A;
+  --accent-3: #7C8B6A;
+  --stage: #E6DEC9; /* fondo fuera del lienzo */
+
+  /* Tipografía */
+  --font-title: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --fs-display: 64px;
+  --fs-title: 44px;
+  --fs-subtitle: 30px;
+  --fs-body: 26px;
+  --fs-small: 18px;
+  --fs-stat: 120px;
+
+  /* Espaciado */
+  --pad-y: 56px;
+  --pad-x: 72px;
+  --gap: 28px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--stage);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+/* ---------- Lienzo 1280x720 (deck.js lo escala) ---------- */
+.deck {
+  position: fixed;
+  top: 0; left: 0;
+  width: 1280px; height: 720px;
+  transform-origin: top left;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: var(--pad-y) var(--pad-x) 88px;
+  background: var(--bg);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+.slide.active { display: flex; animation: fade .35s ease; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Texto ---------- */
+.kicker {
+  margin: 0 0 12px;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.slide h1, .slide h2 {
+  margin: 0 0 var(--gap);
+  font-family: var(--font-title);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.slide h1 { font-size: var(--fs-display); }
+.slide h2 { font-size: var(--fs-title); }
+.slide h2::after {
+  content: "";
+  display: block;
+  width: 72px; height: 3px;
+  margin-top: 18px;
+  background: var(--accent);
+}
+.slide h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-title);
+  font-size: var(--fs-subtitle);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.slide p { margin: 0 0 16px; }
+.slide ul { margin: 0; padding-left: 1.1em; }
+.slide li { margin-bottom: 14px; padding-left: 4px; }
+.slide li::marker { color: var(--accent); }
+
+.slide strong { color: var(--accent); font-weight: 600; }
+
+/* Fuente / pie */
+.source {
+  position: absolute;
+  left: var(--pad-x); right: 160px; bottom: 28px;
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.counter {
+  position: fixed;
+  right: 24px; bottom: 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Portada y separadores ---------- */
+.slide--cover { justify-content: center; border-left: 14px solid var(--accent); }
+.slide--cover .meta { font-size: var(--fs-small); color: var(--ink-soft); margin-top: var(--gap); }
+.slide--cover .subtitle { font-size: var(--fs-subtitle); color: var(--ink-soft); max-width: 900px; }
+
+.slide--section { justify-content: center; background: var(--surface); }
+.slide--section .number {
+  font-family: var(--font-title);
+  font-size: var(--fs-stat);
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.slide--section h2::after { display: none; }
+
+.slide--closing h2 { margin-bottom: 20px; }
+
+/* ---------- Layouts ---------- */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  flex: 1;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 28px;
+}
+
+/* Dato grande */
+.stat { display: flex; align-items: baseline; gap: 32px; margin: auto 0; }
+.stat .figure {
+  font-family: var(--font-title);
+  font-size: var(--fs-stat);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+}
+.stat .caption { font-size: var(--fs-subtitle); color: var(--ink); max-width: 680px; }
+.stat .figure--alt { color: var(--accent-2); }
+
+/* Gráficos */
+.chart-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+/* Tablas */
+table { width: 100%; border-collapse: collapse; font-size: 22px; }
+th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding: 10px 14px;
+}
+td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:nth-child(even) { background: var(--surface); }
+
+/* Cita */
+blockquote {
+  margin: auto 0;
+  padding: 8px 0 8px 32px;
+  border-left: 4px solid var(--accent-2);
+  font-family: var(--font-title);
+  font-size: var(--fs-subtitle);
+  font-style: italic;
+  line-height: 1.35;
+}
+blockquote cite {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-style: normal;
+  color: var(--ink-soft);
+}
+
+/* ---------- Impresión: una diapositiva por página ---------- */
+@page { size: 1280px 720px; margin: 0; }
+@media print {
+  html, body { overflow: visible; height: auto; background: var(--bg); }
+  .deck { position: static; transform: none !important; width: 1280px; height: auto; }
+  .slide {
+    position: relative;
+    display: flex !important;
+    animation: none;
+    width: 1280px; height: 720px;
+    break-after: page;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .counter { display: none; }
+}

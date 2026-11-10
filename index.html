@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diversidad de género en tecnología · Grupo N°7</title>
+  <link rel="stylesheet" href="theme.css">
+  <script src="vendor/chart.umd.js"></script>
+  <script>
+    /* Helpers compartidos para los gráficos: todo se lee de theme.css. */
+    const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    const themeChartDefaults = () => {
+      Chart.defaults.font.family = cssVar('--font-body');
+      Chart.defaults.font.size = parseInt(cssVar('--fs-small'), 10);
+      Chart.defaults.color = cssVar('--ink-soft');
+      Chart.defaults.animation = false;
+    };
+    /* Barras horizontales de una sola serie, con el valor al final de cada barra.
+       colors: una variable CSS por barra, p. ej. ['--accent', '--accent-2'].
+       Etiquetas largas: pasar un arreglo por categoría para partirlas en líneas. */
+    const hbarChart = (id, { labels, data, colors, xTitle, max, barThickness = 40, decimals }) => {
+      const pct = (v) => `${(decimals === undefined ? String(v) : v.toFixed(decimals)).replace('.', ',')}%`;
+      const valueLabels = {
+        id: 'valueLabels',
+        afterDatasetsDraw(chart) {
+          const { ctx } = chart;
+          ctx.save();
+          ctx.fillStyle = cssVar('--ink');
+          ctx.font = `600 ${Chart.defaults.font.size}px ${Chart.defaults.font.family}`;
+          ctx.textBaseline = 'middle';
+          chart.getDatasetMeta(0).data.forEach((bar, i) => ctx.fillText(pct(data[i]), bar.x + 10, bar.y));
+          ctx.restore();
+        }
+      };
+      document.fonts.ready.then(() => {
+        themeChartDefaults();
+        new Chart(document.getElementById(id), {
+          type: 'bar',
+          data: { labels, datasets: [{ data, backgroundColor: colors.map(cssVar), barThickness }] },
+          options: {
+            responsive: false,
+            indexAxis: 'y',
+            layout: { padding: { right: 56 } },
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            scales: {
+              x: {
+                min: 0, max,
+                title: { display: true, text: xTitle },
+                ticks: { callback: (v) => `${v}%` },
+                grid: { color: cssVar('--line') }
+              },
+              y: { grid: { display: false }, ticks: { color: cssVar('--ink') } }
+            }
+          },
+          plugins: [valueLabels]
+        });
+      });
+    };
+  </script>
+</head>
+<body>
+<main class="deck">
+
+  <!-- ================================================================
+       BLOQUE 1: inicio (nombre)
+       Portada + Panorama y datos comparativos de participación en IT
+       ================================================================ -->
+
+  <section class="slide slide--cover">
+    <p class="kicker">Administración Estratégica del Capital Humano · 2.º cuatrimestre 2026</p>
+    <h1>Diversidad de género en tecnología</h1>
+    <p class="subtitle">Barreras de entrada, permanencia y ascenso de mujeres y diversidades, y políticas con evidencia de efectividad</p>
+    <p class="meta">
+      Universidad Tecnológica Nacional · Facultad Regional Buenos Aires<br>
+      <strong>Grupo N°7:</strong> Demián Garabato Rolon, Tomás Federico Fiestas Escubilla, Francisco Albarracin, Roman Alejo Brezman, Facundo Zonis, Fernando Di Matteo<br>
+      <strong>Docentes:</strong> Lic. Liliana Martinez, Arq. Sylvina Enriquez
+    </p>
+  </section>
+
+  <section class="slide slide--section">
+    <p class="number">1</p>
+    <h2>Panorama y datos comparativos de participación en IT</h2>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Bloque 1 · Panorama</p>
+    <h2>Las mujeres son menos de un tercio de la fuerza laboral tecnológica</h2>
+    <ul>
+      <li>Son 28,2% de la fuerza laboral STEM global, frente a 47,3% de la no STEM.</li>
+      <li>En el G20, cerca de 35% de las graduadas STEM, pero solo 22% de la fuerza laboral STEM.</li>
+      <li>En la Unión Europea, las especialistas TIC pasaron de 16,2% en 2014 a 19,5% en 2024.</li>
+      <li>En Argentina el dato oscila entre 30,2% (industria del software) y menos de 20% (profesionales de sistemas).</li>
+    </ul>
+    <p class="source">Fuente: WEF (2024); UNESCO (2024); Eurostat (2025); OPSSI-CESSI; Sysarmy y OpenQube (2026).</p>
+  </section>
+
+  <!-- BLOQUE 1: fin -->
+
+
+  <!-- ================================================================
+       BLOQUE 2: inicio (nombre)
+       Brechas salariales y de promoción
+       ================================================================ -->
+
+  <!-- 2.1 · Brecha bruta en Argentina -->
+  <section class="slide">
+    <p class="kicker">Bloque 2 · Brechas salariales y de promoción</p>
+    <h2>La brecha salarial en software ronda el 20% en Argentina</h2>
+    <div class="chart-wrap">
+      <canvas id="chart-bloque2-bruta" width="1040" height="320"></canvas>
+    </div>
+    <p class="source">Fuente: Fundar (2024); Guitart, Rabosto y Segal, INTAL/BID, reseña de CIECTI (2023); Chicas en Tecnología (2026).</p>
+    <script>
+      hbarChart('chart-bloque2-bruta', {
+        labels: [
+          'Software · Fundar (2024)',
+          'Software · INTAL/BID (2023)',
+          'Software · Chicas en Tecnología (2026)',
+          'Minería · Fundar (2024)',
+          'Industria · Fundar (2024)'
+        ],
+        data: [20, 19.7, 20, 18, 12],
+        colors: ['--accent', '--accent', '--accent', '--accent-2', '--accent-2'],
+        xTitle: 'Brecha salarial bruta (%)',
+        max: 25,
+        barThickness: 34
+      });
+    </script>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Tres fuentes distintas dan la misma magnitud para el software argentino.</li>
+        <li>Son brechas brutas: no controlan por cargo, experiencia ni horas.</li>
+        <li>Es mayor que en industria (12%) y minería (18%), pero igual al promedio del sector privado (20%).</li>
+        <li>Las mujeres son poco más del 30% del empleo registrado del sector, sin cambios desde 1996 (Fundar).</li>
+        <li>Aclaración honesta: del estudio de INTAL/BID se leyó solo la reseña de CIECTI, no el artículo original.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 2.2 · Bruta vs. ajustada -->
+  <section class="slide">
+    <p class="kicker">Bloque 2 · Brechas salariales y de promoción</p>
+    <h2>Gran parte de la brecha se explica por experiencia y rol, pero explicado no es justo</h2>
+    <div class="cols">
+      <div>
+        <h3>Desarrolladores, Stack Overflow</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque2-ajustada" width="500" height="260"></canvas>
+        </div>
+      </div>
+      <div>
+        <h3>Qué hay detrás</h3>
+        <ul>
+          <li>5,7 puntos se explican por menos experiencia: 7,1 años ellas, 10,4 ellos.</li>
+          <li>Esa menor experiencia refleja los cuidados y la segregación hacia roles peor pagos.</li>
+          <li>Controlar por puesto puede ocultar discriminación previa en la movilidad.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="source">Fuente: Iregbulem (2020), sobre Stack Overflow; Guitart, Rabosto y Segal, INTAL/BID (reseña de CIECTI, 2023).</p>
+    <script>
+      hbarChart('chart-bloque2-ajustada', {
+        labels: ['Brecha bruta', ['Brecha ajustada', '(no significativa)']],
+        data: [10.0, 1.4],
+        colors: ['--accent', '--accent-2'],
+        xTitle: 'Diferencia salarial (%)',
+        max: 12,
+        barThickness: 52,
+        decimals: 1
+      });
+    </script>
+    <aside class="notes" hidden>
+      <ul>
+        <li>La experiencia pesa mucho: 7,1 años ellas vs. 10,4 ellos explican 5,7 de los 10 puntos (Iregbulem).</li>
+        <li>Esa menor experiencia es consecuencia de la carga de cuidados y de la segregación hacia roles peor pagos (CIECTI).</li>
+        <li>Un residuo chico no descarta sesgo en la movilidad: controlar por puesto puede ocultar discriminación previa, como advierte el propio autor.</li>
+        <li>Son datos internacionales (Stack Overflow), no argentinos.</li>
+        <li>En economías de ingresos medios-bajos la porción no explicada es mucho mayor (hasta 63,9% en los estudios revisados).</li>
+        <li>Prakash y Yadav (2025), brecha bruta de desarrolladores según el ingreso del país: 8,8% en altos, 22,9% en medios-altos y 36,6% en medios-bajos. Techo de cristal en ingresos altos y piso pegajoso en ingresos medios-bajos.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 2.3 · Segregación y techo de cristal -->
+  <section class="slide">
+    <p class="kicker">Bloque 2 · Brechas salariales y de promoción</p>
+    <h2>Ellas se concentran en los roles peor pagos y pierden presencia en los niveles altos</h2>
+    <div class="cols">
+      <div>
+        <h3>Argentina: por rol y nivel</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque2-roles" width="500" height="280"></canvas>
+        </div>
+      </div>
+      <div>
+        <h3>EE. UU.: por nivel</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque2-niveles" width="500" height="280"></canvas>
+        </div>
+      </div>
+    </div>
+    <p class="source">Fuente: Chicas en Tecnología (2026), citado en Perfil (19/03/2026); Kolesnikova, Levels.fyi (2024); Fundar (2024).</p>
+    <script>
+      hbarChart('chart-bloque2-roles', {
+        labels: ['Total del sector', 'Roles técnicos', 'Posiciones senior', ['Cargos directivos', '(empresas grandes)']],
+        data: [30, 16, 7, 20],
+        colors: ['--accent-3', '--accent', '--accent', '--accent'],
+        xTitle: '% de mujeres',
+        max: 35,
+        barThickness: 36
+      });
+      hbarChart('chart-bloque2-niveles', {
+        labels: ['Nivel inicial', 'Nivel senior'],
+        data: [22, 13],
+        colors: ['--accent-3', '--accent'],
+        xTitle: '% de mujeres entre los datos',
+        max: 35,
+        barThickness: 52
+      });
+    </script>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Fundar y Chicas en Tecnología coinciden: ellas están en roles administrativos, funcionales, Testing/QA y UX/UI; ellos en desarrollo, arquitectura, DevOps y datos (más de 80% varones).</li>
+        <li>En Levels.fyi, en niveles bajos las mujeres a veces ganan más, pero la brecha crece en los niveles altos.</li>
+        <li>Prakash y Yadav (2025) encuentran techo de cristal en países de ingresos altos (la brecha crece en la cima) y piso pegajoso en ingresos medios-bajos.</li>
+        <li>Aclarar que las cifras de Chicas en Tecnología vienen de una nota de prensa, y que Levels.fyi es una muestra voluntaria y sesgada: solo 1 de cada 6 datos fue cargado por mujeres.</li>
+        <li>Las dos series no se comparan entre sí: son fuentes, países y definiciones distintas. Por eso se muestran en paneles separados y no como un embudo.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 2.4 · Promoción -->
+  <section class="slide">
+    <p class="kicker">Bloque 2 · Brechas salariales y de promoción</p>
+    <h2>El primer ascenso a gerente es el escalón roto</h2>
+    <div class="stat">
+      <span class="figure">87</span>
+      <span class="caption">mujeres promovidas a su primer puesto gerencial por cada 100 hombres</span>
+    </div>
+    <div class="stat">
+      <span class="figure figure--alt">31%</span>
+      <span class="caption">de las mujeres tiene sponsor, frente a 45% de los hombres</span>
+    </div>
+    <p class="source">Fuente: LeanIn.Org y McKinsey (2025), Women in the Workplace 2025.</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Son empresas de EE. UU. de todas las industrias: sirve como evidencia del mecanismo, no de la magnitud en IT.</li>
+        <li>Quienes tienen sponsor se promueven a casi el doble de ritmo.</li>
+        <li>Otros estudios dan 87 en vez de 93.</li>
+        <li>Es consistente con la hipótesis (el proceso de ascenso rinde distinto según el género), pero por sí solo no prueba que la causa sea el sesgo.</li>
+        <li>En Argentina, "Paridad en Código" muestra el mismo patrón de pérdida de presencia al subir de nivel: 16% en roles técnicos, 7% en posiciones senior y 20% en cargos directivos de empresas grandes.</li>
+        <li>Frase puente al bloque 3: "Estos números muestran dónde se pierde la presencia, pero no por qué. Para entender el porqué hay que mirar las decisiones concretas: cómo se selecciona y cómo se evalúa."</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- BLOQUE 2: fin -->
+
+
+  <!-- ================================================================
+       BLOQUE 3: inicio (nombre)
+       Sesgos en selección y evaluación de desempeño
+       ================================================================ -->
+
+  <section class="slide">
+    <p class="kicker">Bloque 3 · Sesgos en selección y evaluación</p>
+    <h2>Ante CVs idénticos, los modelos de IA prefieren nombres masculinos</h2>
+    <div class="chart-wrap">
+      <canvas id="chart-bloque3-ia" width="1040" height="320"></canvas>
+    </div>
+    <p class="source">Fuente: Wilson y Caliskan (2024), más de 3 millones de comparaciones.</p>
+    <script>
+      document.fonts.ready.then(() => {
+        themeChartDefaults();
+        const valueLabels = {
+          id: 'valueLabels',
+          afterDatasetsDraw(chart) {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.fillStyle = cssVar('--ink');
+            ctx.font = `600 ${Chart.defaults.font.size}px ${Chart.defaults.font.family}`;
+            ctx.textBaseline = 'middle';
+            chart.getDatasetMeta(0).data.forEach((bar, i) => {
+              ctx.fillText(`${chart.data.datasets[0].data[i]}%`.replace('.', ','), bar.x + 10, bar.y);
+            });
+            ctx.restore();
+          }
+        };
+        new Chart(document.getElementById('chart-bloque3-ia'), {
+          type: 'bar',
+          data: {
+            labels: ['Nombres masculinos', 'Nombres femeninos'],
+            datasets: [{
+              data: [51.9, 11.1],
+              backgroundColor: [cssVar('--accent'), cssVar('--accent-2')],
+              barThickness: 64
+            }]
+          },
+          options: {
+            responsive: false,
+            indexAxis: 'y',
+            layout: { padding: { right: 56 } },
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            scales: {
+              x: {
+                min: 0, max: 60,
+                title: { display: true, text: '% de las pruebas en que el modelo prefirió el CV' },
+                ticks: { callback: (v) => `${v}%` },
+                grid: { color: cssVar('--line') }
+              },
+              y: { grid: { display: false }, ticks: { color: cssVar('--ink') } }
+            }
+          },
+          plugins: [valueLabels]
+        });
+      });
+    </script>
+  </section>
+
+  <!-- BLOQUE 3: fin -->
+
+
+  <!-- ================================================================
+       BLOQUE 4: inicio (nombre)
+       Techo de cristal y acceso a liderazgo
+       ================================================================ -->
+
+  <section class="slide">
+    <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
+    <h2>Con título terciario, las mujeres no llegan a la alta dirección</h2>
+    <div class="cols">
+      <div>
+        <h3>Lo que muestran los datos</h3>
+        <ul>
+          <li>40,3% de la fuerza laboral con título terciario, pero 29,5% de la alta dirección.</li>
+          <li>Alta dirección: de 25,7% en 2015 a 28,1% en 2024.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Lo que lo explica</h3>
+        <ul>
+          <li>Tienen sponsor 31% de las mujeres y 45% de los varones.</li>
+          <li>Entre 2008 y 2010, los varones recibieron 15% más promociones.</li>
+          <li>Las mujeres realizan 76,2% del cuidado no remunerado.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="source">Fuente: WEF (2025); LeanIn.Org y McKinsey (2025); Ibarra, Carter y Silva (2010); OIT (2018).</p>
+  </section>
+
+  <!-- BLOQUE 4: fin -->
+
+
+  <!-- ================================================================
+       BLOQUE 5: inicio (nombre)
+       Políticas de empresas y de Estados
+       ================================================================ -->
+
+  <section class="slide">
+    <p class="kicker">Bloque 5 · Políticas de empresas y de Estados</p>
+    <h2>Las políticas que generan rendición de cuentas muestran resultados medidos</h2>
+    <table>
+      <colgroup>
+        <col style="width: 30%">
+        <col style="width: 20%">
+        <col style="width: 50%">
+      </colgroup>
+      <thead>
+        <tr><th>Política</th><th>Quién la aplica</th><th>Resultado medido</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mentoría formal</td><td>Empresas de EE. UU.</td><td>Entre 9% y 24% más de mujeres negras, hispanas y asiático-americanas en gerencia</td></tr>
+        <tr><td>Comités de diversidad</td><td>Empresas de EE. UU.</td><td>Entre las prácticas más efectivas para aumentar mujeres en gerencia</td></tr>
+        <tr><td>Capacitación obligatoria</td><td>Empresas de EE. UU.</td><td>Sin mejora en mujeres blancas en gerencia</td></tr>
+        <tr><td>Transparencia en el pago</td><td>Estado de Dinamarca</td><td>Brecha 2 puntos porcentuales menor (13%)</td></tr>
+      </tbody>
+    </table>
+    <p class="source">Fuente: Dobbin y Kalev (2016); Kalev, Dobbin y Kelly (2006); Bennedsen et al. (2022).</p>
+  </section>
+
+  <!-- BLOQUE 5: fin -->
+
+
+  <!-- ================================================================
+       BLOQUE 6: inicio (nombre)
+       Análisis crítico integrado, conclusiones y bibliografía
+       ================================================================ -->
+
+  <section class="slide slide--closing">
+    <p class="kicker">Bloque 6 · Conclusiones</p>
+    <h2>La hipótesis se confirma con matices</h2>
+    <ul>
+      <li>Pesan los sesgos y barreras en selección, evaluación y promoción (H1, confirmada con matices).</li>
+      <li>Funcionan la mentoría, los comités y la transparencia; no los tests ni la capacitación obligatoria (H2, confirmada a medias).</li>
+      <li>Parte del problema es previo al empleo y los cuidados dependen también del Estado.</li>
+      <li>Las políticas de atracción, de procesos y públicas se complementan, no se reemplazan.</li>
+    </ul>
+    <p class="source">Bibliografía completa: sección 6 del trabajo escrito.</p>
+  </section>
+
+  <!-- BLOQUE 6: fin -->
+
+</main>
+<script src="deck.js"></script>
+</body>
+</html>
