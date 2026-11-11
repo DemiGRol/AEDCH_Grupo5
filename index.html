@@ -62,7 +62,7 @@
 <main class="deck">
 
   <!-- ================================================================
-       BLOQUE 1: inicio (nombre)
+       BLOQUE 1: inicio (Roman Alejo Brezman)
        Portada + Panorama y datos comparativos de participación en IT
        ================================================================ -->
 
@@ -91,7 +91,106 @@
       <li>En la Unión Europea, las especialistas TIC pasaron de 16,2% en 2014 a 19,5% en 2024.</li>
       <li>En Argentina el dato oscila entre 30,2% (industria del software) y menos de 20% (profesionales de sistemas).</li>
     </ul>
-    <p class="source">Fuente: WEF (2024); UNESCO (2024); Eurostat (2025); OPSSI-CESSI; Sysarmy y OpenQube (2026).</p>
+    <p class="source">Fuente: WEF (2024); UNESCO (2024); Eurostat (2025); OPSSI-CESSI (Forbes Argentina, 2026); Sysarmy y OpenQube (2026).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Este bloque establece el punto de partida cuantitativo y responde a la primera pregunta secundaria: qué evidencia documenta las brechas de representación.</li>
+        <li>En todas las regiones con datos, las mujeres son entre 20% y 30% del sector según la fuente.</li>
+        <li>Argentina (entre 20% y 30%) queda en un rango parecido al promedio global; la Unión Europea (19,5%) queda por debajo del promedio global STEM (28,2%).</li>
+        <li>La Unión Europea avanzó apenas 3,3 puntos en diez años. Extrapolando ese ritmo (unos 0,33 puntos por año) harían falta varias décadas para acercarse a la paridad. Aclarar que es una cuenta propia, no una proyección de los autores.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 1.2 · Pérdidas en el camino -->
+  <section class="slide">
+    <p class="kicker">Bloque 1 · Panorama</p>
+    <h2>Las mujeres se pierden en el paso al empleo y en el camino a la cima</h2>
+    <div class="cols">
+      <div>
+        <h3>G20: de la formación al empleo</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque1-g20" width="500" height="280"></canvas>
+        </div>
+      </div>
+      <div>
+        <h3>Global: de la entrada al C-suite</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque1-niveles" width="500" height="280"></canvas>
+        </div>
+      </div>
+    </div>
+    <p class="source">Fuente: UNESCO (2024), Changing the Equation; WEF (2024), Global Gender Gap Report.</p>
+    <script>
+      hbarChart('chart-bloque1-g20', {
+        labels: [['Graduadas STEM', '(aprox.)'], 'Fuerza laboral STEM'],
+        data: [35, 22],
+        colors: ['--accent-3', '--accent'],
+        xTitle: '% de mujeres',
+        max: 40,
+        barThickness: 52
+      });
+      hbarChart('chart-bloque1-niveles', {
+        labels: [['Puestos STEM', 'de entrada'], ['C-suite', 'STEM']],
+        data: [29, 12.2],
+        colors: ['--accent-3', '--accent'],
+        xTitle: '% de mujeres',
+        max: 40,
+        barThickness: 52
+      });
+    </script>
+    <aside class="notes" hidden>
+      <ul>
+        <li>UNESCO: en 2023 las mujeres eran cerca de 35% de las graduadas universitarias en STEM, pero 22% de la fuerza laboral STEM del G20, sin progreso estadísticamente discernible en la última década.</li>
+        <li>Esto apoya la hipótesis: se pierden en el paso al mercado laboral, no solo antes, al elegir carrera.</li>
+        <li>WEF ("drop to the top"): ocupan 29% de los puestos STEM de entrada y solo 12,2% de los del C-suite.</li>
+        <li>Las dos series no se comparan entre sí: son fuentes y universos distintos. Por eso van en paneles separados.</li>
+        <li>Frase puente: "Este patrón de pérdida al subir de nivel se retoma en los bloques 2 y 4".</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 1.3 · Argentina: el problema empieza antes -->
+  <section class="slide">
+    <p class="kicker">Bloque 1 · Panorama</p>
+    <h2>En Argentina la brecha empieza antes del empleo</h2>
+    <div class="stat">
+      <span class="figure figure--alt">34%</span>
+      <span class="caption">del estudiantado STEM son mujeres</span>
+    </div>
+    <div class="stat">
+      <span class="figure">17%</span>
+      <span class="caption">del estudiantado de programación son mujeres</span>
+    </div>
+    <p class="source">Fuente: Chicas en Tecnología (Forbes Argentina, 2026).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Que solo 17% del estudiantado de programación sea femenino le da peso a las políticas de atracción.</li>
+        <li>Va en línea con el matiz de Miller y Wai (2015) que se presenta en el bloque 4: parte del problema está en que pocas eligen estas carreras.</li>
+        <li>Conclusión del bloque: probablemente actúen ambos factores, la elección de carrera y los procesos organizacionales.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 1.4 · Límites de los datos -->
+  <section class="slide">
+    <p class="kicker">Bloque 1 · Panorama</p>
+    <h2>La cifra depende de cómo se defina el sector, y casi no hay datos sobre diversidades</h2>
+    <ul>
+      <li>El OPSSI encuesta empresas e incluye roles no técnicos: cerca de 30%.</li>
+      <li>Sysarmy es una encuesta voluntaria a profesionales técnicos: menos de 20%.</li>
+      <li>Los datos regionales son poco consistentes: de 15% a 30% según la fuente.</li>
+      <li>Eurostat, la UNESCO y el WEF publican datos solo en categorías binarias.</li>
+      <li>Este vacío sobre personas no binarias y trans es en sí mismo un hallazgo.</li>
+    </ul>
+    <p class="source">Fuente: OPSSI-CESSI (Forbes Argentina, 2026); Sysarmy y OpenQube (2026); Eurostat (2025); UNESCO (2024); WEF (2024).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>La diferencia entre 30% y menos de 20% no es una contradicción: miden universos distintos.</li>
+        <li>Sysarmy es la excepción local: distingue personas cis y registra otras identidades. En una edición anterior, menos de 1% de las respuestas correspondió a otros géneros, una muestra demasiado chica para sacar conclusiones.</li>
+        <li>Frase puente al bloque 2: "Sabemos cuántas son y dónde están. El siguiente paso es ver cuánto ganan y cuánto ascienden".</li>
+      </ul>
+    </aside>
   </section>
 
   <!-- BLOQUE 1: fin -->
