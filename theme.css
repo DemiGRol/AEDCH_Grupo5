@@ -31,6 +31,9 @@
   --pad-y: 56px;
   --pad-x: 72px;
   --gap: 28px;
+  --gap-compact: 14px;
+  --reveal-duration: 220ms;
+  --connector-height: 36px;
 }
 
 * { box-sizing: border-box; }
@@ -212,6 +215,91 @@ blockquote cite {
   color: var(--ink-soft);
 }
 
+/* ---------- Bloque 3: comparaciones con igual jerarquía ---------- */
+.bloque3 > h2,
+.bloque3 > p,
+.bloque3 > .cols {
+  flex-shrink: 0;
+}
+.bloque3 .bloque3-pair {
+  flex: 0;
+  align-items: stretch;
+  margin: var(--gap) 0;
+}
+.bloque3 .bloque3-pair .card {
+  padding: var(--gap);
+}
+.bloque3 .bloque3-pair .card > p:last-child {
+  margin-bottom: 0;
+}
+.bloque3 .bloque3-pair .stat {
+  margin: var(--gap) 0 0;
+}
+.bloque3 .bloque3-salary .figure {
+  font-size: var(--fs-display);
+  white-space: nowrap;
+}
+.bloque3 .bloque3-salary-caption {
+  margin-top: auto;
+}
+.bloque3 .bloque3-context {
+  margin-top: var(--gap);
+}
+.bloque3 .bloque3-comparison {
+  margin: var(--gap-compact) 0 0;
+}
+.bloque3 .bloque3-verdict {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-compact);
+  color: var(--accent);
+  font-size: var(--fs-subtitle);
+  font-weight: 600;
+}
+.bloque3 .bloque3-verdict > span {
+  font-size: var(--fs-title);
+  line-height: 1;
+}
+.bloque3 .bloque3-connector {
+  height: var(--connector-height);
+  flex-shrink: 0;
+}
+.bloque3 .bloque3-connector svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.bloque3 .bloque3-outcome {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--gap);
+  align-items: center;
+  padding: var(--gap-compact) var(--gap);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.bloque3 .bloque3-outcome h3,
+.bloque3 .bloque3-outcome p {
+  margin: 0;
+}
+
+/* Apariciones manuales: ocultar sin desplazar el contenido siguiente. */
+.slide [data-step] {
+  transition: opacity var(--reveal-duration) ease;
+}
+.slide [data-step].is-pending {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide [data-step] { transition: none; }
+}
+
 /* ---------- Impresión: una diapositiva por página ---------- */
 @page { size: 1280px 720px; margin: 0; }
 @media print {
@@ -227,4 +315,10 @@ blockquote cite {
     print-color-adjust: exact;
   }
   .counter { display: none; }
+  .slide [data-step],
+  .slide [data-step].is-pending {
+    visibility: visible;
+    opacity: 1;
+    transition: none;
+  }
 }
