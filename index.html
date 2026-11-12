@@ -451,30 +451,122 @@
 
 
   <!-- ================================================================
-       BLOQUE 5: inicio (nombre)
+       BLOQUE 5: inicio (Tomás Fiestas)
        Políticas de empresas y de Estados
        ================================================================ -->
 
+  <!-- 5.1 · Políticas en las empresas: compromiso vs. control -->
   <section class="slide">
-    <p class="kicker">Bloque 5 · Políticas de empresas y de Estados</p>
-    <h2>Las políticas que generan rendición de cuentas muestran resultados medidos</h2>
-    <table>
-      <colgroup>
-        <col style="width: 30%">
-        <col style="width: 20%">
-        <col style="width: 50%">
-      </colgroup>
-      <thead>
-        <tr><th>Política</th><th>Quién la aplica</th><th>Resultado medido</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Mentoría formal</td><td>Empresas de EE. UU.</td><td>Entre 9% y 24% más de mujeres negras, hispanas y asiático-americanas en gerencia</td></tr>
-        <tr><td>Comités de diversidad</td><td>Empresas de EE. UU.</td><td>Entre las prácticas más efectivas para aumentar mujeres en gerencia</td></tr>
-        <tr><td>Capacitación obligatoria</td><td>Empresas de EE. UU.</td><td>Sin mejora en mujeres blancas en gerencia</td></tr>
-        <tr><td>Transparencia en el pago</td><td>Estado de Dinamarca</td><td>Brecha 2 puntos porcentuales menor (13%)</td></tr>
-      </tbody>
-    </table>
-    <p class="source">Fuente: Dobbin y Kalev (2016); Kalev, Dobbin y Kelly (2006); Bennedsen et al. (2022).</p>
+    <p class="kicker">Bloque 5 · Políticas de empresas</p>
+    <h2>El compromiso y la responsabilidad funcionan; el control obligatorio fracasa</h2>
+    <div class="cols">
+      <div>
+        <h3>Impacto en gerencia (a 5 años)</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque5-empresas" width="500" height="230"></canvas>
+        </div>
+      </div>
+      <div>
+        <h3>Qué muestra la evidencia</h3>
+        <ul>
+          <li><strong>Mentoría y comités:</strong> crean responsabilidad en líderes y abren redes de patrocinio.</li>
+          <li><strong>Capacitación obligatoria:</strong> sin mejoras medibles; genera reactancia defensiva.</li>
+          <li><strong>Control impuesto:</strong> tests y evaluaciones redujeron entre 4% y 10% a mujeres en gerencia.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="source">Fuente: Dobbin y Kalev (Harvard Business Review, 2016); Kalev, Dobbin y Kelly (ASR, 2006).</p>
+    <script>
+      hbarChart('chart-bloque5-empresas', {
+        labels: [
+          ['Mentoría formal', '(mujeres hispanas)'],
+          ['Mentoría formal', '(afroamericanas)'],
+          'Reclutamiento dirigido',
+          ['Capacitación obligatoria', '(mujeres blancas)']
+        ],
+        data: [24, 18, 10, 0],
+        colors: ['--accent', '--accent', '--accent-3', '--line'],
+        xTitle: 'Variación en puestos gerenciales (%)',
+        max: 30,
+        barThickness: 28
+      });
+    </script>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Dobbin y Kalev (2016) analizaron 829 empresas a lo largo de varias décadas.</li>
+        <li>La mentoría formal logra aumentos de entre 9% y 24% en grupos subrepresentados a 5 años.</li>
+        <li>Los comités y directores de diversidad son la herramienta con mayor impacto sostenido (Kalev et al., 2006).</li>
+        <li>En cambio, la capacitación obligatoria sobre sesgos no tuvo efecto medible: cuando se impone como control, los gerentes suelen reaccionar a la defensiva.</li>
+        <li>Los tests y evaluaciones impuestas sin rendición de cuentas terminaron reduciendo la presencia de mujeres (entre -4% y -10%).</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 5.2 · Políticas de Estado -->
+  <section class="slide">
+    <p class="kicker">Bloque 5 · Políticas de Estados</p>
+    <h2>La transparencia salarial reduce la brecha, pero las cuotas no derraman</h2>
+    <div class="cols">
+      <div>
+        <h3>Transparencia por ley</h3>
+        <ul>
+          <li><strong>Dinamarca (2022):</strong> redujo la brecha salarial 2 puntos porcentuales (13%).</li>
+          <li><strong>Reino Unido (2018):</strong> el reporte obligatorio cerró un 19% de la brecha.</li>
+          <li><strong>El mecanismo:</strong> la brecha bajó porque creció menos el salario masculino.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Cuotas y certificaciones</h3>
+        <ul>
+          <li><strong>Noruega (cuota 40%):</strong> mejoró directorios, pero sin derrame a otros niveles.</li>
+          <li><strong>Islandia (certificación):</strong> sin diferencia entre empresas certificadas y no certificadas.</li>
+          <li><strong>Argentina:</strong> paridad legislativa y cupo travesti-trans (falta medir en IT).</li>
+        </ul>
+      </div>
+    </div>
+    <p class="source">Fuente: Bennedsen et al. (2022); Blundell et al. (2025); Bertrand et al. (2019); Icelandic Review (2022).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Dinamarca y Reino Unido demuestran que la transparencia de sueldos empuja a las empresas a corregir disparidades.</li>
+        <li>Ojo con el indicador: en ambos países la brecha se achica frenando los aumentos masculinos, no elevando extraordinariamente el de las mujeres.</li>
+        <li>Noruega (2003): la cuota en directorios rompió el techo de cristal en la cúpula, pero el estudio de Bertrand et al. (2019) muestra que no benefició a las empleadas de las líneas medias o bajas.</li>
+        <li>Islandia: no hay evidencia causal de que la certificación haya sido el motor directo de la baja de brecha.</li>
+        <li>Argentina: tenemos avances legales notables en el ámbito público y electoral, pero falta relevar su impacto concreto en la industria tecnológica.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 5.3 · Impacto en el negocio y conclusión del bloque -->
+  <section class="slide">
+    <p class="kicker">Bloque 5 · Negocio y conclusión del bloque</p>
+    <h2>La correlación con el negocio existe, pero intervenir en procesos exige rendición de cuentas</h2>
+    <div class="cols">
+      <div>
+        <h3>Impacto en el negocio</h3>
+        <ul>
+          <li><strong>Margen neto (+15%):</strong> correlación al tener ≥ 30% de mujeres en liderazgo (PIIE, 21.980 firmas).</li>
+          <li><strong>Sin causalidad probada:</strong> estudio financiado por EY; en Dinamarca la equidad no alteró la rentabilidad.</li>
+          <li><strong>Solidez de la evidencia:</strong> calificada como baja a media.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Conclusiones del bloque</h3>
+        <ul>
+          <li><strong>El control fracasa:</strong> tests y cursos forzados no mejoran la diversidad.</li>
+          <li><strong>La atracción también aporta:</strong> el reclutamiento dirigido sumó 10% más en gerencia.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="source">Fuente: Noland, Moran y Kotschwar (PIIE, 2016); Bennedsen et al. (2022); Dobbin y Kalev (2016).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>El estudio del Peterson Institute (2016) suele citarse para justificar la diversidad como negocio (+15% de margen neto con 30% de mujeres arriba). Pero seamos honestos: es una correlación, no causalidad, y fue auspiciado por EY.</li>
+        <li>En Dinamarca (Bennedsen), la transparencia achicó la brecha y la rentabilidad se mantuvo idéntica.</li>
+        <li>Contraste con la hipótesis H2: nuestra hipótesis decía que intervenir en procesos era superior a atraer.</li>
+        <li>Conclusión del bloque: La hipótesis se confirma a medias. Funcionan los procesos de rendición de cuentas (mentoría, comités, transparencia), pero fracasan los de control (capacitaciones obligatorias, tests). Y además, la atracción (reclutamiento universitario dirigido) también demostró dar frutos. Ambas deben combinarse.</li>
+        <li>Frase puente hacia el bloque 6: "Con esta evidencia sobre lo que funciona y lo que no en la gestión del talento, pasamos al análisis crítico integrado y las conclusiones finales del trabajo."</li>
+      </ul>
+    </aside>
   </section>
 
   <!-- BLOQUE 5: fin -->
