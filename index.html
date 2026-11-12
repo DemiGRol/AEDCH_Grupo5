@@ -432,18 +432,83 @@
   <!-- 4.1 · El fenómeno -->
   <section class="slide">
     <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
-    <h2>Las mujeres se forman, pero pocas llegan a los puestos de decisión</h2>
-    <ul>
-      <li>El techo de cristal no es falta de formación: con título terciario, las mujeres son 40,3% de la fuerza laboral, pero 29,5% de la alta dirección.</li>
-      <li>El avance es lento y se frenó: en nueve años la alta dirección femenina pasó de 25,7% a 28,1%.</li>
-      <li>Tecnología no es la excepción: los varones predominan en cada etapa, sobre todo en la cima.</li>
-    </ul>
+    <h2>Las mujeres se forman, pero pocas llegan a la cima</h2>
+    <div class="cols">
+      <div>
+        <h3>Formación frente a liderazgo</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque4-educacion" width="500" height="300"></canvas>
+        </div>
+      </div>
+      <div>
+        <h3>Mujeres en la alta dirección</h3>
+        <div class="chart-wrap">
+          <canvas id="chart-bloque4-evolucion" width="500" height="300"></canvas>
+        </div>
+      </div>
+    </div>
     <p class="source">Fuente: WEF (2025), datos de todas las industrias.</p>
+    <script>
+      hbarChart('chart-bloque4-educacion', {
+        labels: [['Fuerza laboral con', 'educación superior'], 'Alta dirección'],
+        data: [40.3, 29.5],
+        colors: ['--accent-3', '--accent'],
+        xTitle: '% de mujeres',
+        max: 50,
+        barThickness: 56,
+        decimals: 1
+      });
+      document.fonts.ready.then(() => {
+        themeChartDefaults();
+        const data = [25.7, 28.1];
+        const valueLabels = {
+          id: 'valueLabels',
+          afterDatasetsDraw(chart) {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.fillStyle = cssVar('--ink');
+            ctx.font = `600 ${Chart.defaults.font.size}px ${Chart.defaults.font.family}`;
+            ctx.textAlign = 'center';
+            chart.getDatasetMeta(0).data.forEach((pt, i) => {
+              ctx.fillText(`${data[i]}%`.replace('.', ','), pt.x, pt.y - 16);
+            });
+            ctx.restore();
+          }
+        };
+        new Chart(document.getElementById('chart-bloque4-evolucion'), {
+          type: 'line',
+          data: {
+            labels: ['2015', '2024'],
+            datasets: [{
+              data,
+              borderColor: cssVar('--accent'),
+              backgroundColor: cssVar('--accent'),
+              borderWidth: 3,
+              pointRadius: 6
+            }]
+          },
+          options: {
+            responsive: false,
+            plugins: { legend: { display: false }, tooltip: { enabled: false } },
+            scales: {
+              y: {
+                min: 0, max: 50,
+                title: { display: true, text: '% de mujeres' },
+                ticks: { callback: (v) => `${v}%` },
+                grid: { color: cssVar('--line') }
+              },
+              x: { offset: true, grid: { display: false }, ticks: { color: cssVar('--ink') } }
+            }
+          },
+          plugins: [valueLabels]
+        });
+      });
+    </script>
     <aside class="notes" hidden>
       <ul>
-        <li>Idea central: el problema no es que falten mujeres preparadas, sino que no llegan arriba.</li>
-        <li>En tecnología, información y medios las mujeres son cerca de 35%, con problemas de retención. Aclarar que esa cifra incluye roles no técnicos (marketing, RR. HH., ventas, medios).</li>
-        <li>Los datos de liderazgo son de todas las industrias porque casi no hay estudios específicos del sector.</li>
+        <li>No es un problema de formación: con educación superior (universitaria o terciaria) las mujeres son 40,3% de la fuerza laboral, pero 29,5% de la alta dirección.</li>
+        <li>En nueve años la alta dirección femenina subió solo 2,4 puntos y el ritmo se frenó.</li>
+        <li>Son datos de todas las industrias. En tecnología, información y medios las mujeres son cerca de 35% (incluye roles no técnicos) y los varones predominan en cada etapa, sobre todo en la cima.</li>
       </ul>
     </aside>
   </section>
@@ -452,18 +517,21 @@
   <section class="slide">
     <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
     <h2>El freno está en cómo se asciende y en los cuidados, no en el talento</h2>
-    <ul>
-      <li><strong>Menos respaldo para ascender.</strong> Tener mentores no alcanza: hace falta alguien que impulse el ascenso. Con mentores, los varones igual recibieron 15% más promociones.</li>
-      <li><strong>Cargos más riesgosos.</strong> Cuando llegan, las mujeres tienen más chances de ser nombradas en puestos precarios (precipicio de cristal).</li>
-      <li><strong>La carga de cuidados.</strong> Las mujeres realizan 76,2% del cuidado no remunerado, la principal barrera laboral según la OIT.</li>
-    </ul>
-    <p class="source">Fuente: Ibarra, Carter y Silva (2010); Ryan y Haslam (2007); OIT (2018).</p>
+    <div class="stat">
+      <span class="figure">15%</span>
+      <span class="caption">más promociones recibieron los varones, aunque ellas también tenían mentores</span>
+    </div>
+    <div class="stat">
+      <span class="figure figure--alt">76,2%</span>
+      <span class="caption">del cuidado no remunerado lo realizan las mujeres</span>
+    </div>
+    <p class="source">Fuente: Ibarra, Carter y Silva (2010); OIT (2018).</p>
     <aside class="notes" hidden>
       <ul>
-        <li>Un mentor aconseja; un sponsor usa su influencia para impulsar un ascenso. Las mujeres tenían lo primero, no lo segundo (datos de 2008 a 2010).</li>
-        <li>Precipicio de cristal: llegar a cargos con más riesgo de fracaso hace que después se lea como falta de capacidad.</li>
-        <li>Debate: algunos autores (Ceci y Williams) sostienen que pesan más las decisiones individuales. Al empezar, 69% de las mujeres quiere ascender frente a 80% de los varones (McKinsey y LeanIn.Org, 2025), pero eso puede deberse a que tienen menos apoyo, no a que quieran menos.</li>
-        <li>Postura del equipo: en los ascensos pesa más lo estructural; en los cuidados se mezclan ambos factores.</li>
+        <li>Sponsors: un mentor aconseja; un sponsor usa su influencia para impulsar un ascenso. Las mujeres tenían lo primero, no lo segundo (datos de 2008 a 2010).</li>
+        <li>Precipicio de cristal (Ryan y Haslam, 2007; Haslam y Ryan, 2008): cuando llegan, tienen más chances de ser nombradas en puestos riesgosos o precarios.</li>
+        <li>Cuidados: la OIT los señala como la principal barrera laboral.</li>
+        <li>Debate: al empezar, 69% de las mujeres quiere ascender frente a 80% de los varones (McKinsey y LeanIn.Org, 2025). Puede reflejar menos apoyo, no menos ambición.</li>
       </ul>
     </aside>
   </section>
@@ -472,17 +540,23 @@
   <section class="slide">
     <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
     <h2>La hipótesis se sostiene, pero no todo depende de las empresas</h2>
-    <ul>
-      <li>Las barreras en los ascensos respaldan que el problema está en los procesos organizacionales.</li>
-      <li>Parte del problema empieza antes: en EE. UU., las graduadas STEM llegan al doctorado casi igual que los varones, así que la brecha estaría en la elección de carrera.</li>
-      <li>Los cuidados dependen también del Estado, con guarderías y licencias.</li>
-    </ul>
-    <p class="source">Fuente: Miller y Wai (2015); OIT (2018).</p>
+    <div class="cols" style="align-items: stretch; flex: 0 1 auto;">
+      <div class="card">
+        <h3>Se confirma</h3>
+        <p>El freno está en los procesos de ascenso.</p>
+      </div>
+      <div class="card">
+        <h3>Con matices</h3>
+        <p>Parte empieza antes, en la elección de carrera. Los cuidados dependen también del Estado.</p>
+      </div>
+    </div>
+    <p class="source">Fuente: WEF (2025); Miller y Wai (2015); OIT (2018).</p>
     <aside class="notes" hidden>
       <ul>
-        <li>Si el problema arranca en la elección de carrera, las políticas de atracción pesan más de lo que la hipótesis supone.</li>
-        <li>Límite de la evidencia: ninguna fuente cuenta a personas no binarias o trans.</li>
-        <li>Puente al bloque 5: si las barreras están en los procesos de ascenso, la pregunta es qué políticas intervienen sobre ellos y con qué resultados.</li>
+        <li>Miller y Wai (2015): en EE. UU., las graduadas STEM llegan al doctorado casi igual que los varones; la brecha estaría en que pocas eligen esas carreras.</li>
+        <li>Los cuidados dependen también de guarderías y licencias, no solo de la empresa.</li>
+        <li>Límite: ninguna fuente cuenta a personas no binarias o trans.</li>
+        <li>Puente al bloque 5: si las barreras están en los procesos, la pregunta es qué políticas funcionan para cambiarlos.</li>
       </ul>
     </aside>
   </section>
