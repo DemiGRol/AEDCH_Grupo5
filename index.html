@@ -201,6 +201,11 @@
        Brechas salariales y de promoción
        ================================================================ -->
 
+  <section class="slide slide--section">
+    <p class="number">2</p>
+    <h2>Brechas salariales y de promoción</h2>
+  </section>
+
   <!-- 2.1 · Brecha bruta en Argentina -->
   <section class="slide">
     <p class="kicker">Bloque 2 · Brechas salariales y de promoción</p>
@@ -357,63 +362,140 @@
 
 
   <!-- ================================================================
-       BLOQUE 3: inicio (nombre)
+       BLOQUE 3: inicio (Demián Garabato Rolon)
        Sesgos en selección y evaluación de desempeño
        ================================================================ -->
 
-  <section class="slide">
+  <section class="slide slide--section">
+    <p class="number">3</p>
+    <h2>Sesgos en selección y evaluación de desempeño</h2>
+  </section>
+
+  <!-- 3.1 · Evaluación humana -->
+  <section class="slide bloque3" id="bloque3-evaluacion">
     <p class="kicker">Bloque 3 · Sesgos en selección y evaluación</p>
-    <h2>Ante CVs idénticos, los modelos de IA prefieren nombres masculinos</h2>
-    <div class="chart-wrap">
-      <canvas id="chart-bloque3-ia" width="1040" height="320"></canvas>
+    <h2>Un mismo perfil recibe distinta evaluación</h2>
+    <div class="cols bloque3-pair">
+      <div class="card">
+        <h3>John</h3>
+        <p>CV de laboratorio<br>Antecedentes idénticos</p>
+        <div class="stat bloque3-salary" data-step="1">
+          <span class="figure">US$ 30.238</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Jennifer</h3>
+        <p>CV de laboratorio<br>Antecedentes idénticos</p>
+        <div class="stat bloque3-salary" data-step="1">
+          <span class="figure">US$ 26.507</span>
+        </div>
+      </div>
     </div>
-    <p class="source">Fuente: Wilson y Caliskan (2024), más de 3 millones de comparaciones.</p>
+    <p class="bloque3-salary-caption" data-step="1">Salario inicial recomendado</p>
+    <p class="source">Fuente: Moss-Racusin et al. (2012) · Experimento con 127 docentes de ciencias.</p>
+    <aside class="notes" hidden>
+      <p>Tiempo orientativo: 25 segundos. Dos momentos manuales: al entrar se muestran las fichas sin salarios; al avanzar con flecha derecha, espacio o clic en el sector derecho aparecen ambos montos y el rótulo salarial (13.2). La flecha izquierda los vuelve a ocultar. En impresión se incluyen todos los elementos.</p>
+      <p>Volvamos al ingreso. En este experimento, 127 docentes de ciencias evaluaron un mismo CV de laboratorio, asignado al azar a John o Jennifer.</p>
+      <p>Pausa breve para observar los antecedentes idénticos. Avanzar a 13.2 y dirigir la atención a los montos: los antecedentes eran iguales, pero John recibió mejores valoraciones y una recomendación salarial mayor. ¿Qué pasa si ese primer filtro lo hace una IA?</p>
+      <p>Contexto y límite: experimento doble ciego con docentes universitarios de ciencias, no con reclutadores de empresas tecnológicas. Aporta evidencia sobre un mecanismo, no una medición directa del sector tecnológico argentino.</p>
+      <p>Fuente principal: <a href="tp-diversidad-genero-tecnologia.md">TP, sección 3.3, tabla 3 y límites de generalización</a>. Se conserva el salario de Jennifer tal como figura en el TP: US$ 26.507.</p>
+      <p>Referencia: <a href="https://doi.org/10.1073/pnas.1211286109">Moss-Racusin et al. (2012), PNAS</a>.</p>
+    </aside>
+  </section>
+
+  <!-- 3.2 · Preselección automatizada -->
+  <section class="slide bloque3" id="bloque3-ia">
+    <p class="kicker">Bloque 3 · Sesgos en selección y evaluación</p>
+    <h2>El nombre también puede pesar en el filtro de IA</h2>
+    <div class="chart-wrap">
+      <canvas id="chart-bloque3-ia" width="1040" height="240" role="img"
+        aria-label="Porcentaje de pruebas que favorecieron cada nombre: nombres masculinos, 51,9%; nombres femeninos, 11,1%."
+        aria-describedby="bloque3-ia-contexto">Nombres masculinos: 51,9% de las pruebas. Nombres femeninos: 11,1% de las pruebas.</canvas>
+    </div>
+    <p class="bloque3-context" id="bloque3-ia-contexto">CVs idénticos · Más de 3 millones de comparaciones</p>
+    <p class="source">Fuente: Wilson y Caliskan (2024) · Auditoría algorítmica de filtrado de CVs.</p>
     <script>
-      document.fonts.ready.then(() => {
-        themeChartDefaults();
-        const valueLabels = {
-          id: 'valueLabels',
-          afterDatasetsDraw(chart) {
-            const { ctx } = chart;
-            ctx.save();
-            ctx.fillStyle = cssVar('--ink');
-            ctx.font = `600 ${Chart.defaults.font.size}px ${Chart.defaults.font.family}`;
-            ctx.textBaseline = 'middle';
-            chart.getDatasetMeta(0).data.forEach((bar, i) => {
-              ctx.fillText(`${chart.data.datasets[0].data[i]}%`.replace('.', ','), bar.x + 10, bar.y);
-            });
-            ctx.restore();
-          }
-        };
-        new Chart(document.getElementById('chart-bloque3-ia'), {
-          type: 'bar',
-          data: {
-            labels: ['Nombres masculinos', 'Nombres femeninos'],
-            datasets: [{
-              data: [51.9, 11.1],
-              backgroundColor: [cssVar('--accent'), cssVar('--accent-2')],
-              barThickness: 64
-            }]
-          },
-          options: {
-            responsive: false,
-            indexAxis: 'y',
-            layout: { padding: { right: 56 } },
-            plugins: { legend: { display: false }, tooltip: { enabled: false } },
-            scales: {
-              x: {
-                min: 0, max: 60,
-                title: { display: true, text: '% de las pruebas en que el modelo prefirió el CV' },
-                ticks: { callback: (v) => `${v}%` },
-                grid: { color: cssVar('--line') }
-              },
-              y: { grid: { display: false }, ticks: { color: cssVar('--ink') } }
-            }
-          },
-          plugins: [valueLabels]
-        });
+      hbarChart('chart-bloque3-ia', {
+        labels: ['Nombres masculinos', 'Nombres femeninos'],
+        data: [51.9, 11.1],
+        colors: ['--accent', '--accent'],
+        xTitle: '% de las pruebas en que el modelo prefirió el CV',
+        max: 60,
+        barThickness: 64,
+        decimals: 1
       });
     </script>
+    <aside class="notes" hidden>
+      <p>Tiempo orientativo: 25 segundos.</p>
+      <p>Ahora el filtro lo hace un modelo. En esta auditoría, los CV eran idénticos y cambiaban los nombres. Los modelos favorecieron nombres masculinos en el 51,9% de las pruebas, frente al 11,1% para los femeninos. Automatizar no garantiza neutralidad. ¿Qué ocurre cuando la postulación también indica maternidad?</p>
+      <p>Contexto para preguntas: las barras representan porcentajes de pruebas, no porcentajes de postulantes contratados. El estudio comprende más de 3 millones de comparaciones. Se muestran únicamente las dos categorías y los valores documentados en el TP; no se agrega un total de pruebas ni una tercera categoría.</p>
+      <p>Fuente principal: <a href="tp-diversidad-genero-tecnologia.md">TP, sección 3.3, tabla 3</a>.</p>
+      <p>Referencia: <a href="https://arxiv.org/html/2407.20371v2">Wilson y Caliskan (2024), auditoría de filtrado de CVs</a>.</p>
+    </aside>
+  </section>
+
+  <!-- 3.3 · Muro de la maternidad -->
+  <section class="slide bloque3" id="bloque3-maternidad">
+    <p class="kicker">Bloque 3 · Sesgos en selección y evaluación</p>
+    <h2>La maternidad puede pesar desde la postulación</h2>
+    <p>Tasa de respuesta a postulaciones equivalentes</p>
+    <div class="cols bloque3-pair">
+      <div class="card">
+        <h3>Mujeres sin hijos</h3>
+        <div class="stat"><span class="figure">6,6%</span></div>
+      </div>
+      <div class="card">
+        <h3>Madres</h3>
+        <div class="stat"><span class="figure">3,1%</span></div>
+      </div>
+    </div>
+    <p class="source">Fuente: Correll, Benard y Paik (2007) · Auditoría de campo en búsquedas reales.</p>
+    <aside class="notes" hidden>
+      <p>Tiempo orientativo: 25 segundos.</p>
+      <p>En búsquedas reales, las candidaturas tenían credenciales equivalentes. Sin embargo, las mujeres sin hijos recibieron un 6,6% de respuestas y las madres, un 3,1%: menos de la mitad. Es el muro de la maternidad. Una vez dentro del equipo, la siguiente pregunta es cómo se evalúa a quién puede ascender.</p>
+      <p>Contexto para preguntas: el TP recoge además que las madres fueron juzgadas con estándares más exigentes y con menor compromiso, mientras que los padres no sufrieron penalización y obtuvieron mayor oferta salarial. Esto muestra cómo los estereotipos pueden intervenir en una decisión de selección aun con antecedentes equivalentes.</p>
+      <p>Contexto y límite: el trabajo combina un experimento y una auditoría de campo. Las tasas visibles corresponden a la auditoría en el mercado real. No son una estimación de la magnitud de la barrera en el software argentino.</p>
+      <p>Fuente principal: <a href="tp-diversidad-genero-tecnologia.md">TP, sección 3.3, tablas 3 y 4</a>.</p>
+      <p>Referencia: <a href="https://inequality.stanford.edu/sites/default/files/media/_media/pdf/Reference%20Media/Correll%2C%20Benard%2C%20and%20Paik_2007_Gender.pdf">Correll, Benard y Paik (2007), American Journal of Sociology</a>.</p>
+    </aside>
+  </section>
+
+  <!-- 3.4 · Evaluación y ascenso -->
+  <section class="slide bloque3 bloque3--sequence" id="bloque3-potencial">
+    <p class="kicker">Bloque 3 · Sesgos en selección y evaluación</p>
+    <h2>El ascenso también depende de cómo se evalúa</h2>
+    <p>Calificaciones promedio de las mujeres respecto de los varones</p>
+    <div class="cols bloque3-pair bloque3-comparison">
+      <div class="card">
+        <h3>Desempeño actual</h3>
+        <p>Trabajo demostrado</p>
+        <p class="bloque3-verdict"><span aria-hidden="true">↑</span> Mejor calificación</p>
+      </div>
+      <div class="card" data-step="1">
+        <h3>Potencial futuro</h3>
+        <p>Expectativa de quien evalúa</p>
+        <p class="bloque3-verdict"><span aria-hidden="true">↓</span> Peor calificación</p>
+      </div>
+    </div>
+    <div class="bloque3-connector" data-step="2">
+      <svg viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M 250 0 V 14 H 750 V 0 M 500 14 V 36 M 492 28 L 500 36 L 508 28" />
+      </svg>
+    </div>
+    <div class="bloque3-outcome" data-step="2">
+      <h3>Menos promociones</h3>
+      <p>La subvaluación del potencial explica <strong>hasta el 50%</strong> de la brecha de promociones.</p>
+    </div>
+    <p class="source">Fuente: Benson, Li y Shue (2022) · Estudio empírico y cuantitativo, 29.809 evaluaciones.</p>
+    <aside class="notes" hidden>
+      <p>Tiempo orientativo: 45 segundos. Tres momentos manuales con flecha derecha, espacio o clic en el sector derecho. La flecha izquierda permite deshacer cada aparición. En impresión se ve la secuencia completa.</p>
+      <p>Inicio: en este estudio, las mujeres recibían mejores calificaciones por su desempeño. Si miráramos el trabajo demostrado, ¿qué esperaríamos de los ascensos? Dejar una pausa breve.</p>
+      <p>Primer avance: sin embargo, se les asignaba menor potencial futuro: una valoración sobre su capacidad para asumir nuevas responsabilidades.</p>
+      <p>Segundo avance: esa subvaluación explica hasta el 50% de la brecha de promociones. Y antes de evaluar quién puede liderar, hay otra pregunta: ¿quién tuvo la oportunidad de demostrarlo? Esta pregunta da paso al bloque de Facundo.</p>
+      <p>Contexto para preguntas: las flechas solo indican la dirección de las diferencias; no representan magnitudes ni trayectorias individuales. Se mantiene la referencia de 2022 y la unidad de observación del TP: 29.809 evaluaciones.</p>
+      <p>Ejemplo opcional para la defensa: en un equipo de software, ¿qué evidencia usamos para decir que alguien está listo para liderar? Por ejemplo, cómo coordinó una entrega o cómo ayudó a resolver un incidente. Es una pregunta para analizar criterios, no un resultado medido en empresas de software por este estudio.</p>
+      <p>Fuente principal: <a href="tp-diversidad-genero-tecnologia.md">TP, sección 3.3, tabla 3 y análisis crítico</a>. Referencia allí consignada: Benson, Li y Shue (2022), “Potential” and the Gender Promotion Gap, University of Minnesota y Yale / MIT Sloan.</p>
+    </aside>
   </section>
 
   <!-- BLOQUE 3: fin -->
@@ -569,6 +651,11 @@
        Políticas de empresas y de Estados
        ================================================================ -->
 
+  <section class="slide slide--section">
+    <p class="number">5</p>
+    <h2>Políticas de empresas y de Estados</h2>
+  </section>
+
   <!-- 5.1 · Políticas en las empresas: compromiso vs. control -->
   <section class="slide">
     <p class="kicker">Bloque 5 · Políticas de empresas</p>
@@ -690,6 +777,11 @@
        BLOQUE 6: inicio (nombre)
        Análisis crítico integrado, conclusiones y bibliografía
        ================================================================ -->
+
+  <section class="slide slide--section">
+    <p class="number">6</p>
+    <h2>Conclusiones</h2>
+  </section>
 
   <section class="slide slide--closing">
     <p class="kicker">Bloque 6 · Conclusiones</p>
