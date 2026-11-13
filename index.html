@@ -213,18 +213,17 @@
     <div class="chart-wrap">
       <canvas id="chart-bloque2-bruta" width="1040" height="320"></canvas>
     </div>
-    <p class="source">Fuente: Fundar (2024); Guitart, Rabosto y Segal, INTAL/BID, reseña de CIECTI (2023); Chicas en Tecnología (2026).</p>
+    <p>Según el INDEC (2026), la brecha en el sector privado oscila entre 26% y 29%.</p>
+    <p class="source">Fuente: Fundar (2024); Guitart, Rabosto y Segal, INTAL/BID, reseña de CIECTI (2023); Chicas en Tecnología (2026); INDEC (2026).</p>
     <script>
       hbarChart('chart-bloque2-bruta', {
         labels: [
           'Software · Fundar (2024)',
           'Software · INTAL/BID (2023)',
-          'Software · Chicas en Tecnología (2026)',
-          'Minería · Fundar (2024)',
-          'Industria · Fundar (2024)'
+          'Software · Chicas en Tecnología (2026)'
         ],
-        data: [20, 19.7, 20, 18, 12],
-        colors: ['--accent', '--accent', '--accent', '--accent-2', '--accent-2'],
+        data: [20, 19.7, 20],
+        colors: ['--accent', '--accent', '--accent'],
         xTitle: 'Brecha salarial bruta (%)',
         max: 25,
         barThickness: 34
