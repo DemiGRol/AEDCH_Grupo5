@@ -4,7 +4,7 @@ Este archivo define cómo se ve y cómo se construye la presentación. Lo leen t
 
 ## 1. Contexto
 
-- TP grupal de **Administración Estratégica del Capital Humano** (UTN FRBA, 2.º cuatrimestre 2026), Grupo N°7.
+- TP grupal de **Administración Estratégica del Capital Humano** (UTN FRBA, 2.º cuatrimestre 2026), Grupo N°5.
 - Tema: **diversidad de género en tecnología** (barreras de entrada, permanencia y ascenso, y políticas con evidencia de efectividad).
 - Formato: presentación oral en HTML + CSS + JS, sin frameworks ni build. Se abre con doble clic en `index.html`.
 - **El contenido sale de `tp-diversidad-genero-tecnologia.md`.** No inventar datos, cifras ni fuentes: todo número que aparezca en una diapositiva tiene que estar en ese archivo, con su fuente.

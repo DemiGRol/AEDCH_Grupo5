@@ -5,7 +5,7 @@
 Universidad Tecnológica Nacional · Facultad Regional Buenos Aires
 Administración Estratégica del Capital Humano · 2.º cuatrimestre 2026
 
-**Grupo N°7:** Demián Garabato Rolon, Tomás Federico Fiestas Escubilla, Francisco Albarracin, Roman Alejo Brezman, Facundo Zonis, Fernando Di Matteo
+**Grupo N°5:** Demián Garabato Rolon, Tomás Federico Fiestas Escubilla, Francisco Albarracin, Roman Alejo Brezman, Facundo Zonis, Fernando Di Matteo
 
 **Docentes:** Lic. Liliana Martinez, Arq. Sylvina Enriquez
 
