@@ -502,7 +502,7 @@
 
 
   <!-- ================================================================
-       BLOQUE 4: inicio (nombre)
+       BLOQUE 4: inicio (Facundo Zonis)
        Techo de cristal y acceso a liderazgo
        ================================================================ -->
 
@@ -511,27 +511,142 @@
     <h2>Techo de cristal y acceso a liderazgo</h2>
   </section>
 
+  <!-- 4.1 · Educación vs. alta dirección -->
   <section class="slide">
     <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
-    <h2>Con título terciario, las mujeres no llegan a la alta dirección</h2>
+    <h2>Las mujeres estudian, pero no llegan a la alta dirección</h2>
+    <div class="chart-wrap">
+      <canvas id="chart-bloque4-educacion" width="1040" height="320"></canvas>
+    </div>
+    <p class="source">Fuente: WEF (2025), datos de todas las industrias.</p>
+    <script>
+      hbarChart('chart-bloque4-educacion', {
+        labels: [['Fuerza laboral con', 'título terciario'], 'Alta dirección'],
+        data: [40.3, 29.5],
+        colors: ['--accent-3', '--accent'],
+        xTitle: '% de mujeres',
+        max: 50,
+        barThickness: 64,
+        decimals: 1
+      });
+    </script>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Con el mismo nivel educativo, la presencia de mujeres cae casi 11 puntos al llegar a la alta dirección: no es un problema de formación.</li>
+        <li>En la industria de tecnología, información y medios las mujeres son cerca de 35%, con problemas de retención. Los varones predominan en cada etapa, sobre todo en el C-suite STEM (WEF, 2025).</li>
+        <li>Aclarar que ese 35% incluye roles no técnicos (marketing, RR. HH., ventas, medios), porque es muy difícil encontrar estudios tan específicos.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 4.2 · Estancamiento -->
+  <section class="slide">
+    <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
+    <h2>El avance hacia la alta dirección se frenó</h2>
+    <div class="stat">
+      <span class="figure">2,4</span>
+      <span class="caption">puntos subió la presencia de mujeres en la alta dirección en nueve años, de 25,7% a 28,1%</span>
+    </div>
+    <div class="stat">
+      <span class="figure figure--alt">29%</span>
+      <span class="caption">del C-suite son mujeres, igual que el año anterior</span>
+    </div>
+    <p class="source">Fuente: WEF (2025), período 2015-2024; McKinsey y LeanIn.Org (2025), Women in the Workplace.</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Son datos de todas las industrias, no solo de tecnología.</li>
+        <li>El WEF señala que, además de ser lento, el ritmo de avance se frenó.</li>
+        <li>McKinsey confirma el estancamiento en empresas de EE. UU.: el C-suite femenino no se movió de un año al otro.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 4.3 · Mecanismos -->
+  <section class="slide">
+    <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
+    <h2>El freno está más en cómo se asciende y en los cuidados que en el talento</h2>
+    <table>
+      <thead>
+        <tr><th>Mecanismo</th><th>Qué muestra la evidencia</th><th>Fuente</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Falta de sponsors</td>
+          <td>Las mujeres tenían mentores, pero entre 2008 y 2010 los varones recibieron 15% más promociones.</td>
+          <td>Ibarra, Carter y Silva (2010)</td>
+        </tr>
+        <tr>
+          <td>Precipicio de cristal</td>
+          <td>Las mujeres tienen más chances de ser nombradas en puestos riesgosos o precarios.</td>
+          <td>Ryan y Haslam (2007); Haslam y Ryan (2008)</td>
+        </tr>
+        <tr>
+          <td>Carga de cuidados</td>
+          <td>Las mujeres realizan 76,2% del cuidado no remunerado, principal barrera laboral según la OIT.</td>
+          <td>OIT (2018)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="source">Fuente: Ibarra, Carter y Silva (2010); Ryan y Haslam (2007); Haslam y Ryan (2008); OIT (2018).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Un mentor aconseja; un sponsor usa su influencia para impulsar un ascenso. Las mujeres tenían lo primero, no lo segundo.</li>
+        <li>Precipicio de cristal: cuando llegan, suele ser a cargos con más riesgo de fracaso, lo que después se lee como falta de capacidad. Es evidencia experimental.</li>
+        <li>Los cuidados reducen horas y experiencia acumulada, lo que conecta con la brecha salarial del bloque 2.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 4.4 · Individual vs. estructural -->
+  <section class="slide">
+    <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
+    <h2>Querer ascender menos puede reflejar tener menos apoyo</h2>
     <div class="cols">
       <div>
-        <h3>Lo que muestran los datos</h3>
+        <h3>Lectura individual</h3>
         <ul>
-          <li>40,3% de la fuerza laboral con título terciario, pero 29,5% de la alta dirección.</li>
-          <li>Alta dirección: de 25,7% en 2015 a 28,1% en 2024.</li>
+          <li>Pesan más las decisiones de carrera y de familia (Ceci y Williams).</li>
+          <li>Al empezar, 69% de las mujeres quiere ascender, frente a 80% de los varones.</li>
         </ul>
       </div>
       <div>
-        <h3>Lo que lo explica</h3>
+        <h3>Lectura estructural</h3>
         <ul>
-          <li>Tienen sponsor 31% de las mujeres y 45% de los varones.</li>
-          <li>Entre 2008 y 2010, los varones recibieron 15% más promociones.</li>
-          <li>Las mujeres realizan 76,2% del cuidado no remunerado.</li>
+          <li>La menor aspiración puede deberse a que tienen menos apoyo.</li>
+          <li>Sin guarderías ni licencias, es difícil hablar de elección libre.</li>
         </ul>
       </div>
     </div>
-    <p class="source">Fuente: WEF (2025); LeanIn.Org y McKinsey (2025); Ibarra, Carter y Silva (2010); OIT (2018).</p>
+    <p><strong>Postura del equipo:</strong> en los ascensos pesa más lo estructural; en los cuidados se mezclan ambos factores.</p>
+    <p class="source">Fuente: McKinsey y LeanIn.Org (2025); Ceci y Williams.</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Es el debate central del bloque: ¿las mujeres eligen no ascender o el sistema no las acompaña?</li>
+        <li>El dato de McKinsey es real, pero no dice por qué: una aspiración menor puede ser consecuencia de tener menos sponsors y menos apoyo.</li>
+        <li>Con los cuidados la elección no es del todo libre si faltan guarderías y licencias.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- 4.5 · Análisis crítico -->
+  <section class="slide">
+    <p class="kicker">Bloque 4 · Techo de cristal y liderazgo</p>
+    <h2>La evidencia apoya la hipótesis, con tres matices</h2>
+    <ul>
+      <li><strong>Apoya.</strong> Las mujeres estudian pero no llegan arriba, y los sponsors y el precipicio de cristal apuntan a barreras en los ascensos.</li>
+      <li><strong>Matiz 1.</strong> En EE. UU., las graduadas STEM llegan al doctorado casi igual que los varones: el problema estaría antes, en la elección de carrera.</li>
+      <li><strong>Matiz 2.</strong> Los cuidados no los decide la empresa: dependen también del Estado (guarderías, licencias).</li>
+      <li><strong>Matiz 3.</strong> Los datos de liderazgo son de todas las industrias y ninguna fuente cuenta a personas no binarias o trans.</li>
+    </ul>
+    <p class="source">Fuente: WEF (2025); Miller y Wai (2015); OIT (2018).</p>
+    <aside class="notes" hidden>
+      <ul>
+        <li>Matiz 1: si el problema arranca en la elección de carrera, las políticas de atracción pesan más de lo que la hipótesis supone.</li>
+        <li>Matiz 2: no todo es un problema de procesos organizacionales; parte de la solución es política pública.</li>
+        <li>Matiz 3: además, la cifra de 35% en tecnología incluye roles no técnicos. Es un límite de lo que se sabe.</li>
+        <li>Puente al bloque 5: si las barreras están en los procesos de ascenso, la pregunta es qué políticas intervienen sobre ellos y con qué resultados.</li>
+      </ul>
+    </aside>
   </section>
 
   <!-- BLOQUE 4: fin -->
